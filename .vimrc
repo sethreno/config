@@ -68,3 +68,12 @@ if has("gui_running")
   endif
 endif
 
+" add command to format xml
+if executable("xmllint")
+	function! DoFormatXml()
+		% !xmllint.exe % --format
+	endfunction
+	command FormatXml call DoFormatXml()
+endif
+
+
