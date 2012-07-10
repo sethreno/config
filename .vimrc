@@ -49,6 +49,7 @@ Bundle 'TaskList.vim'
 Bundle 'SuperTab-continued.'
 Bundle 'xmledit'
 Bundle 'xml.vim'
+Bundle 'dbext.vim'
 
 
 " ----------------------------------------------------
@@ -76,4 +77,7 @@ if executable("xmllint")
 	command FormatXml call DoFormatXml()
 endif
 
+" configure dbext
+let g:dbext_default_SQLSRV_bin = 'sqlcmd'
+let g:dbext_default_SQLSRV_cmd_options  = ''
 
