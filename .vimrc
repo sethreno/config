@@ -2,6 +2,12 @@ set nocompatible
 
 set ts=4
 set sw=4
+set ruler
+set laststatus=2 "always show status
+set number
+set nowrap
+set tw=72
+set autoindent
 
 " turn on syntax folding (toggle folds with za)
 let g:xml_syntax_folding=1
@@ -13,9 +19,6 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-set number
-set nowrap
 
 " ----------------------------------------------------
 "                  tag stuff
