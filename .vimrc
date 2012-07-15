@@ -9,6 +9,11 @@ set nowrap
 set tw=72
 set autoindent
 
+" turn off temp files
+set nobackup
+set nowritebackup
+set noswapfile
+
 " turn on syntax folding (toggle folds with za)
 let g:xml_syntax_folding=1
 set foldmethod=syntax
