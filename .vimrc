@@ -49,6 +49,7 @@ Bundle 'TaskList.vim'
 Bundle 'SuperTab-continued.'
 Bundle 'xmledit'
 Bundle 'xml.vim'
+Bundle 'tpope/vim-fugitive'
 
 
 " ----------------------------------------------------
