@@ -2,6 +2,17 @@ set nocompatible
 
 set ts=4
 set sw=4
+set ruler
+set laststatus=2 "always show status
+set number
+set nowrap
+set tw=72
+set autoindent
+
+" turn off temp files
+set nobackup
+set nowritebackup
+set noswapfile
 
 " turn on syntax folding (toggle folds with za)
 let g:xml_syntax_folding=1
@@ -13,9 +24,6 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-set number
-set nowrap
 
 " ----------------------------------------------------
 "                  tag stuff
@@ -50,6 +58,7 @@ Bundle 'SuperTab-continued.'
 Bundle 'xmledit'
 Bundle 'xml.vim'
 Bundle 'tpope/vim-fugitive'
+Bundle 'dbext.vim'
 
 
 " ----------------------------------------------------
@@ -59,4 +68,25 @@ Bundle 'tpope/vim-fugitive'
 " enable zenburn and make it look good in the terminal
 colorscheme zenburn
 set t_Co=256
+
+" set font in gvim
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_win32")
+    set guifont=Consolas:h10:cANSI
+  endif
+endif
+
+" add command to format xml
+if executable("xmllint")
+	function! DoFormatXml()
+		% !xmllint.exe % --format
+	endfunction
+	command FormatXml call DoFormatXml()
+endif
+
+" configure dbext
+let g:dbext_default_SQLSRV_bin = 'sqlcmd'
+let g:dbext_default_SQLSRV_cmd_options  = ''
 
