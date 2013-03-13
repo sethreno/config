@@ -17,6 +17,7 @@ set noswapfile
 " turn on syntax folding (toggle folds with za)
 let g:xml_syntax_folding=1
 set foldmethod=syntax
+syntax on;
 
 " turn on code completion
 filetype plugin on
