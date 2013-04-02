@@ -8,6 +8,7 @@ set number
 set nowrap
 set tw=72
 set autoindent
+set backspace=eol,start,indent
 
 " turn off temp files
 set nobackup
@@ -60,6 +61,7 @@ Bundle 'xmledit'
 Bundle 'xml.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'dbext.vim'
+Bundle 'The-Mail-Suite-tms'
 
 
 " ----------------------------------------------------
@@ -90,4 +92,9 @@ endif
 " configure dbext
 let g:dbext_default_SQLSRV_bin = 'sqlcmd'
 let g:dbext_default_SQLSRV_cmd_options  = ''
+
+" hide unused stuff in gvim
+set guioptions-=m
+set guioptions-=T
+set guioptions-=r
 
