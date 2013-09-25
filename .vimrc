@@ -54,20 +54,24 @@ Bundle 'gmarik/vundle'
 Bundle 'vcscommand.vim'
 Bundle 'surround.vim'
 Bundle 'taglist.vim'
-Bundle 'Zenburn'
+Bundle 'flazz/vim-colorschemes'
 Bundle 'TaskList.vim'
 Bundle 'SuperTab-continued.'
 Bundle 'xmledit'
 Bundle 'xml.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'dbext.vim'
-Bundle 'The-Mail-Suite-tms'
+Bundle 'vim-scripts/OutlookVim'
+Bundle 'highlight.vim'
+Bundle 'vim-scripts/CycleColor'
+
 
 
 " ----------------------------------------------------
 "                color scheme
 " ----------------------------------------------------
 "
+
 " enable zenburn and make it look good in the terminal
 colorscheme zenburn
 set t_Co=256
@@ -80,6 +84,7 @@ if has("gui_running")
     set guifont=Consolas:h10:cANSI
   endif
 endif
+
 
 " add command to format xml
 if executable("xmllint")
@@ -97,4 +102,15 @@ let g:dbext_default_SQLSRV_cmd_options  = ''
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
+
+" settings for git commit messages
+function GitCommitSettings()
+	setlocal spell	
+	set lines=75 columns=120
+	colorscheme xoria256   " red & green diff
+	%s///g               " remove ^M added by git diff
+	syntax sync fromstart  " refresh syntax highlight after replace
+	1
+endfunction
+au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
 
