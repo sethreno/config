@@ -9,6 +9,7 @@ set nowrap
 set tw=72
 set autoindent
 set backspace=eol,start,indent
+set clipboard=unnamed "copy and paste to system clipboard
 
 " turn off temp files
 set nobackup
@@ -110,7 +111,14 @@ function GitCommitSettings()
 	colorscheme xoria256   " red & green diff
 	%s///g               " remove ^M added by git diff
 	syntax sync fromstart  " refresh syntax highlight after replace
-	1
+	1                      " move to line 1
 endfunction
 au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
+
+" settings for editing trello card text
+function TrelloSettings()
+	set tw=58
+	set syntax=markdown
+endfunction
+au BufNewFile,BufRead vimperator-trello.* call TrelloSettings()
 
