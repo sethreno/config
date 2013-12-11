@@ -103,6 +103,7 @@ let g:dbext_default_SQLSRV_cmd_options  = ''
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
+set guioptions+=c
 
 " settings for git commit messages
 function GitCommitSettings()
