@@ -123,3 +123,27 @@ function TrelloSettings()
 endfunction
 au BufNewFile,BufRead vimperator-trello.* call TrelloSettings()
 
+function s:ParityQuery(db)
+	let sql = join(getline(1,'$'), " ")
+	let old = "c:\\temp\\ParityQuery_old.txt"
+	let new = "c:\\temp\\ParityQuery_new.txt"
+	let oldCmd = "sqlcmd -S localhost\\sqlexpress -d " . a:db . " -Q \"" . sql . "\" -o " . old
+	let newCmd = "sqlcmd -S localhost\\instance2 -d " . a:db . " -Q \"" . sql . "\" -o " . new
+	silent execute "!" . oldCmd
+	silent execute "!" . newCmd
+	let _old = bufnr(old)
+	if (_old < 0)
+		execute 'new' old
+		:diffthis
+		:setl autoread
+	endif
+	let _new = bufnr(new)
+	if (_new < 0)
+		execute 'vnew' new
+		:diffthis
+		:setl autoread
+	endif
+	:redraw
+endfunction
+command! -nargs=1 ParityQuery call s:ParityQuery(<f-args>)
+
