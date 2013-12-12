@@ -106,7 +106,7 @@ set guioptions-=r
 set guioptions+=c
 
 " settings for git commit messages
-function GitCommitSettings()
+function! GitCommitSettings()
 	setlocal spell	
 	set lines=75 columns=120
 	colorscheme xoria256   " red & green diff
@@ -117,33 +117,34 @@ endfunction
 au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
 
 " settings for editing trello card text
-function TrelloSettings()
+function! TrelloSettings()
 	set tw=58
 	set syntax=markdown
 endfunction
 au BufNewFile,BufRead vimperator-trello.* call TrelloSettings()
 
-function s:ParityQuery(db)
-	let sql = join(getline(1,'$'), " ")
-	let old = "c:\\temp\\ParityQuery_old.txt"
+function! s:SqlQuery(server, db, sqlFile, outFile, bufOpenCmd)
+	let cmd = "sqlcmd -S " . a:server . " -d " . a:db . " -i \"" . a:sqlFile . "\" -o " . a:outFile
+	silent execute "!" . cmd
+	if (bufnr(a:outFile) < 0)
+		execute a:bufOpenCmd a:outFile
+		:diffthis
+		:setl autoread
+	endif
+endfunction
+
+function! s:ParityQuery(db)
+	let sqlFile = tempname()
+	let lines = getline(1,'$')
+	let test = writefile(lines, sqlFile)
+
 	let new = "c:\\temp\\ParityQuery_new.txt"
-	let oldCmd = "sqlcmd -S localhost\\sqlexpress -d " . a:db . " -Q \"" . sql . "\" -o " . old
-	let newCmd = "sqlcmd -S localhost\\instance2 -d " . a:db . " -Q \"" . sql . "\" -o " . new
-	silent execute "!" . oldCmd
-	silent execute "!" . newCmd
-	let _old = bufnr(old)
-	if (_old < 0)
-		execute 'new' old
-		:diffthis
-		:setl autoread
-	endif
-	let _new = bufnr(new)
-	if (_new < 0)
-		execute 'vnew' new
-		:diffthis
-		:setl autoread
-	endif
+	let old = "c:\\temp\\ParityQuery_old.txt"
+	call s:SqlQuery("localhost\\instance2", a:db, sqlFile, new, "new")
+	call s:SqlQuery("localhost\\sqlexpress", a:db, sqlFile, old, "vnew")
+
 	:redraw
 endfunction
+
 command! -nargs=1 ParityQuery call s:ParityQuery(<f-args>)
 
