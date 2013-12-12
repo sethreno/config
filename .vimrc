@@ -123,14 +123,23 @@ function! TrelloSettings()
 endfunction
 au BufNewFile,BufRead vimperator-trello.* call TrelloSettings()
 
-function! s:SqlQuery(server, db, sqlFile, outFile, bufOpenCmd)
+function! s:SqlQuery(server, db, sqlFile, outFile, bufOpenCmd, diff)
 	let cmd = "sqlcmd -S " . a:server . " -d " . a:db . " -i \"" . a:sqlFile . "\" -o " . a:outFile
 	silent execute "!" . cmd
 	if (bufnr(a:outFile) < 0)
 		execute a:bufOpenCmd a:outFile
-		:diffthis
+		if (a:diff == 1)
+			:diffthis
+		endif
 		:setl autoread
 	endif
+endfunction
+
+function! s:QueryDb(server, db)
+	let sqlFile = tempname()
+	let lines = getline(1,'$')
+	let test = writefile(lines, sqlFile)
+	call s:SqlQuery(a:server, a:db, sqlFile, "c:\\temp\QueryDb.txt", "new", 0)
 endfunction
 
 function! s:ParityQuery(db)
@@ -140,11 +149,12 @@ function! s:ParityQuery(db)
 
 	let new = "c:\\temp\\ParityQuery_new.txt"
 	let old = "c:\\temp\\ParityQuery_old.txt"
-	call s:SqlQuery("localhost\\instance2", a:db, sqlFile, new, "new")
-	call s:SqlQuery("localhost\\sqlexpress", a:db, sqlFile, old, "vnew")
+	call s:SqlQuery("localhost\\instance2", a:db, sqlFile, new, "new", 1)
+	call s:SqlQuery("localhost\\sqlexpress", a:db, sqlFile, old, "vnew", 1)
 
 	:redraw
 endfunction
 
 command! -nargs=1 ParityQuery call s:ParityQuery(<f-args>)
+command! -nargs=+ QueryDb call s:QueryDb(<f-args>)
 
