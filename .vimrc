@@ -46,26 +46,27 @@ let Tlist_GainFocus_On_ToggleOpen = 1
 " 
 " stuff required to get vundle to work
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-filetype plugin indent on
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
 " list of installed packages
-Bundle 'gmarik/vundle'
-Bundle 'vcscommand.vim'
-Bundle 'surround.vim'
-Bundle 'taglist.vim'
-Bundle 'flazz/vim-colorschemes'
-Bundle 'TaskList.vim'
-Bundle 'SuperTab-continued.'
-Bundle 'xmledit'
-Bundle 'xml.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'dbext.vim'
-Bundle 'vim-scripts/OutlookVim'
-Bundle 'highlight.vim'
-Bundle 'vim-scripts/CycleColor'
+Plugin 'gmarik/vundle'
+Plugin 'vcscommand.vim'
+Plugin 'surround.vim'
+"Plugin 'taglist.vim'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'TaskList.vim'
+Plugin 'SuperTab-continued.'
+Plugin 'xmledit'
+Plugin 'xml.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'dbext.vim'
+Plugin 'vim-scripts/OutlookVim'
+Plugin 'highlight.vim'
+Plugin 'vim-scripts/CycleColor'
 
+call vundle#end()
+filetype plugin indent on
 
 
 " ----------------------------------------------------
