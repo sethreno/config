@@ -153,7 +153,7 @@ function! s:ParityQuery(server, db)
 	let newDb = a:server . "\\instance2"
 	let oldDb = a:server
 	if (a:server == "localhost")
-		let oldDb = a:server . "\\sqlexpress"
+		"let oldDb = a:server . "\\sqlexpress"
 	endif
 	call s:SqlQuery(newDb, a:db, sqlFile, new, "new", 1)
 	call s:SqlQuery(oldDb, a:db, sqlFile, old, "vnew", 1)
@@ -163,4 +163,65 @@ endfunction
 
 command! -nargs=+ ParityQuery call s:ParityQuery(<f-args>)
 command! -nargs=+ QueryDb call s:QueryDb(<f-args>)
+
+function s:RestoreRosnetDb(server, db)
+	let lines = []
+	call add(lines, "exec dbo.rsp_Create_Job_RestoreDevDBs '" . a:db . "';")
+	call add(lines, "go")
+	call add(lines, "exec sp_start_job 'RestoreDevDBs';")
+	call add(lines, "go")
+	let sqlFile = tempname()
+	:echom sqlFile
+	let test = writefile(lines, sqlFile)
+	let new = "c:\\temp\\RestoreRosnetDbResult.txt"
+	call s:SqlQuery(a:server, "msdb", sqlFile, new, "new", 0)
+endfunction
+command! -nargs=+ RestoreRosnetDb call s:RestoreRosnetDb(<f-args>)
+
+function s:RestoreRosnetDbStatus(server)
+	let lines = []
+	call add(lines, "SELECT start_time, percent_complete, dateadd(second,estimated_completion_time/1000, getdate()) as estimate, substring(a.text, 0, 30) AS Query FROM sys.dm_exec_requests r CROSS APPLY sys.dm_exec_sql_text(r.sql_handle) a WHERE r.command in ('BACKUP DATABASE','RESTORE DATABASE')")
+	let sqlFile = tempname()
+	:echom sqlFile
+	let test = writefile(lines, sqlFile)
+	let new = "c:\\temp\\RestoreRosnetDbStatus.txt"
+	call s:SqlQuery(a:server, "msdb", sqlFile, new, "new", 0)
+endfunction
+command! -nargs=+ RestoreRosnetDbStatus call s:RestoreRosnetDbStatus(<f-args>)
+
+function s:LockRosnetDb(server, db, lockedBy, note)
+	let server = a:server
+	if (a:server == "dev")
+		let server = "ROSDEV15-KCI-DC"
+	endif
+	if (a:server == "qa")
+		let server = "ROSDEV18-KCI-DC"
+	endif
+	let lines = []
+	call add(lines, "insert into f_lock_db ( SQL_Server_ID, Database_Name, Locked_By, Notes) values ( '" . server . "', '" . a:db . "', '" . a:lockedBy . "', '" . a:note . "')")
+	let sqlFile = tempname()
+	:echom sqlFile
+	let test = writefile(lines, sqlFile)
+	let new = "c:\\temp\\LockRosnetDb.txt"
+	call s:SqlQuery('ROSDEV16-KCI-DC', "zz_db_admin", sqlFile, new, "new", 0)
+endfunction
+command! -nargs=+ LockRosnetDb call s:LockRosnetDb(<f-args>)
+
+function s:UnLockRosnetDb(server, db)
+	let server = a:server
+	if (a:server == "dev")
+		let server = "ROSDEV15-KCI-DC"
+	endif
+	if (a:server == "qa")
+		let server = "ROSDEV18-KCI-DC"
+	endif
+	let lines = []
+	call add(lines, "delete f_lock_db where sql_server_id = '" . server . "' and database_name = '" . a:db . "'")
+	let sqlFile = tempname()
+	:echom sqlFile
+	let test = writefile(lines, sqlFile)
+	let new = "c:\\temp\\UnLockRosnetDb.txt"
+	call s:SqlQuery('ROSDEV16-KCI-DC', "zz_db_admin", sqlFile, new, "new", 0)
+endfunction
+command! -nargs=+ UnLockRosnetDb call s:UnLockRosnetDb(<f-args>)
 
