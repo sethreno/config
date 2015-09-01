@@ -118,7 +118,7 @@ endfunction
 au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
 
 " prevent editor config from loading for vim commit message
-let g:EditorConfig_exclude_patterns = ['.git/COMMIT_EDITMSG']
+let g:EditorConfig_exclude_patterns = ['COMMIT_EDITMSG']
 
 " settings for editing trello card text
 function! TrelloSettings()
