@@ -64,7 +64,7 @@ Plugin 'dbext.vim'
 Plugin 'vim-scripts/OutlookVim'
 Plugin 'highlight.vim'
 Plugin 'vim-scripts/CycleColor'
-
+Plugin 'editorconfig/editorconfig-vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -116,6 +116,9 @@ function! GitCommitSettings()
 	1                      " move to line 1
 endfunction
 au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
+
+" prevent editor config from loading for vim commit message
+let g:EditorConfig_exclude_patterns = ['.git/COMMIT_EDITMSG']
 
 " settings for editing trello card text
 function! TrelloSettings()
