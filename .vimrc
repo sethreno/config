@@ -143,29 +143,24 @@ function! s:QueryDb(server, db)
 	let sqlFile = tempname()
 	let lines = getline(1,'$')
 	let test = writefile(lines, sqlFile)
-	call s:SqlQuery(a:server, a:db, sqlFile, "c:\\temp\QueryDb.txt", "new", 0)
+	call s:SqlQuery(a:server, a:db, sqlFile, tempname(), "new", 0)
 endfunction
 
-function! s:ParityQuery(server, db)
+function! s:QueryDbDiff(serverA, dbA, serverB, dbB)
 	let sqlFile = tempname()
 	let lines = getline(1,'$')
 	let test = writefile(lines, sqlFile)
 
-	let new = "c:\\temp\\ParityQuery_new.txt"
-	let old = "c:\\temp\\ParityQuery_old.txt"
-	let newDb = a:server . "\\instance2"
-	let oldDb = a:server
-	if (a:server == "localhost")
-		"let oldDb = a:server . "\\sqlexpress"
-	endif
-	call s:SqlQuery(newDb, a:db, sqlFile, new, "new", 1)
-	call s:SqlQuery(oldDb, a:db, sqlFile, old, "vnew", 1)
+	let a = tempname()
+	let b = tempname()
+	call s:SqlQuery(a:serverB, a:dbB, sqlFile, b, "new", 1)
+	call s:SqlQuery(a:serverA, a:dbA, sqlFile, a, "vnew", 1)
 
 	:redraw
 endfunction
 
-command! -nargs=+ ParityQuery call s:ParityQuery(<f-args>)
 command! -nargs=+ QueryDb call s:QueryDb(<f-args>)
+command! -nargs=+ QueryDbDiff call s:QueryDbDiff(<f-args>)
 
 function s:RestoreRosnetDb(server, db)
 	let lines = []
