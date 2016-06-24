@@ -65,8 +65,12 @@ Plugin 'vim-scripts/OutlookVim'
 Plugin 'highlight.vim'
 Plugin 'vim-scripts/CycleColor'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'bling/vim-airline'
+Plugin 'easymotion/vim-easymotion'
+
 call vundle#end()
 filetype plugin indent on
+
 
 
 " ----------------------------------------------------
