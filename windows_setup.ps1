@@ -1,15 +1,22 @@
 iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
-choco install ConEmu
-choco install slickrun
-choco install python2
-choco install python3
-choco install git
-choco install poshgit
-choco install vim
-choco install mssql2014express-defaultinstance
+choco install ConEmu --yes --verbose
+choco install slickrun --yes --verbose
+choco install python2 --yes --verbose
+choco install python3 --yes --verbose
+choco install git --yes --verbose
+choco install poshgit --yes --verbose
+choco install vim --yes --verbose
+choco install mssql2014express-defaultinstance --yes --verbose
 
-# do this last, it might time out btw
-choco install visualstudio2015professional
+# yeah that's right. two hours...
+# it timed out with the default of 2700 (45 minutes)
+# the install still copleted, I just had to monitor it with task manager
+choco install visualstudio2015professional --yes --verbose --timeout 7200
 
-#manual install of vsvim - choco package fails
+#manual install of the following becaue their choco package doesn't work or doesn't exist
+# vs addin - vsvim
+# vs addin - tabgroupjumber
+# vs addin - rebracer
+# vs addin - editorconfig
+# vs addin - resharper
 
