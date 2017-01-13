@@ -114,9 +114,12 @@ function! GitCommitSettings()
 	setlocal spell	
 	set lines=75 columns=120
 	colorscheme xoria256   " red & green diff
-	%s///g               " remove ^M added by git diff
-	syntax sync fromstart  " refresh syntax highlight after replace
-	1                      " move to line 1
+
+	" uncomment the following lines if you have core.autocrlf false
+	" alternatively run git config --global core.autocrlf true
+	" %s///g               " remove ^M added by git diff
+	"syntax sync fromstart  " refresh syntax highlight after replace
+	"1                      " move to line 1
 endfunction
 au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
 
