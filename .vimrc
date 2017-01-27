@@ -10,6 +10,7 @@ set tw=72
 set autoindent
 set backspace=eol,start,indent
 set clipboard=unnamed "copy and paste to system clipboard
+set visualbell " don't beep - our clicky keyboard is annoying enough for the neighbors
 
 " turn off temp files
 set nobackup
@@ -117,9 +118,9 @@ function! GitCommitSettings()
 
 	" uncomment the following lines if you have core.autocrlf false
 	" alternatively run git config --global core.autocrlf true
-	" %s///g               " remove ^M added by git diff
-	"syntax sync fromstart  " refresh syntax highlight after replace
-	"1                      " move to line 1
+	%s///g               " remove ^M added by git diff
+	syntax sync fromstart  " refresh syntax highlight after replace
+	1                      " move to line 1
 endfunction
 au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
 
