@@ -6,3 +6,5 @@ Write-Host "persistent history enabled ($HistoryFilePath)"
 Set-PSReadlineOption -EditMode Vi
 Write-Host "vi mode enabled :D"
 
+Import-Module PSColor
+

@@ -20,3 +20,6 @@ choco install visualstudio2015professional --yes --verbose --timeout 7200
 # vs addin - editorconfig
 # vs addin - resharper
 
+#enable colors for ls command
+Install-Module PSColor
+
