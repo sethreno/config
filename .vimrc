@@ -12,10 +12,12 @@ set backspace=eol,start,indent
 set clipboard=unnamed "copy and paste to system clipboard
 set visualbell " don't beep - our clicky keyboard is annoying enough for the neighbors
 
-" turn off temp files
-set nobackup
-set nowritebackup
-set noswapfile
+" don't polute the world with temp files
+set backup
+set backupdir=~/.vim/backupdir
+set backupskip=~/.vim/backupdir\*
+set directory=~/.vim/swap
+set writebackup
 
 " turn on syntax folding (toggle folds with za)
 let g:xml_syntax_folding=1
@@ -65,7 +67,6 @@ Plugin 'vim-scripts/OutlookVim'
 Plugin 'highlight.vim'
 Plugin 'vim-scripts/CycleColor'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'bling/vim-airline'
 Plugin 'easymotion/vim-easymotion'
 
 call vundle#end()
