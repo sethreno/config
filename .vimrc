@@ -13,11 +13,8 @@ set clipboard=unnamed "copy and paste to system clipboard
 set visualbell " don't beep - our clicky keyboard is annoying enough for the neighbors
 
 " don't polute the world with temp files
-set backup
-set backupdir=~/.vim/backupdir
-set backupskip=~/.vim/backupdir\*
+set nobackup
 set directory=~/.vim/swap
-set writebackup
 
 " turn on syntax folding (toggle folds with za)
 let g:xml_syntax_folding=1
