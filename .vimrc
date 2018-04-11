@@ -54,7 +54,7 @@ Plugin 'gmarik/vundle'
 Plugin 'vcscommand.vim'
 Plugin 'surround.vim'
 "Plugin 'taglist.vim'
-Plugin 'flazz/vim-colorschemes'
+
 Plugin 'TaskList.vim'
 Plugin 'xmledit'
 Plugin 'xml.vim'
@@ -65,6 +65,13 @@ Plugin 'highlight.vim'
 Plugin 'vim-scripts/CycleColor'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'jeffkreeftmeijer/vim-numbertoggle'
+
+" colorschemes
+Plugin 'flazz/vim-colorschemes'
+Plugin 'Heorhiy/VisualStudioDark.vim'
+Plugin 'felixhummel/setcolors.vim'
+Plugin 'ajmwagar/vim-deus'
 
 call vundle#end()
 filetype plugin indent on
@@ -75,18 +82,19 @@ filetype plugin indent on
 "                color scheme
 " ----------------------------------------------------
 "
-
-" enable zenburn and make it look good in the terminal
-colorscheme zenburn
-set t_Co=256
-
-" set font in gvim
 if has("gui_running")
+  " set font in gvim
+  " gui colors
+  " favorites: zenburn anderson deus wombat VisualStudioDark
+  colorscheme deus
   if has("gui_gtk2")
     set guifont=Inconsolata\ 12
   elseif has("gui_win32")
     set guifont=Consolas:h10:cANSI
   endif
+else
+  " terminal colors
+  colorscheme 0x7A69_dark
 endif
 
 
@@ -112,7 +120,6 @@ set guioptions+=c
 function! GitCommitSettings()
 	setlocal spell	
 	set lines=75 columns=120
-	colorscheme xoria256   " red & green diff
 
 	" uncomment the following lines if you have core.autocrlf false
 	" alternatively run git config --global core.autocrlf true
