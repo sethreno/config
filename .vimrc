@@ -141,6 +141,7 @@ endfunction
 au BufNewFile,BufRead vimperator-trello.* call TrelloSettings()
 
 function! s:SqlQueryRos(env, db, sqlFile, outFile, bufOpenCmd, diff)
+	set syntax=sql
 	let cmd = "RosTools query -e " . a:env . " -db " . a:db . " -i \"" . a:sqlFile . "\" -o " . a:outFile
 	silent execute "!" . cmd
 	if (bufnr(a:outFile) < 0)
@@ -153,6 +154,7 @@ function! s:SqlQueryRos(env, db, sqlFile, outFile, bufOpenCmd, diff)
 endfunction
 
 function! s:SqlQuery(server, db, sqlFile, outFile, bufOpenCmd, diff)
+	set syntax=sql
 	let cmd = "RosTools query -s " . a:server . " -db " . a:db . " -i \"" . a:sqlFile . "\" -o " . a:outFile
 	silent execute "!" . cmd
 	if (bufnr(a:outFile) < 0)
