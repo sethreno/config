@@ -19,6 +19,7 @@ set directory=~/.vim/swap
 " turn on syntax folding (toggle folds with za)
 let g:xml_syntax_folding=1
 set foldmethod=syntax
+set foldlevelstart=3
 syntax on;
 
 " turn on code completion
