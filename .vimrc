@@ -83,6 +83,8 @@ filetype plugin indent on
 "                color scheme
 " ----------------------------------------------------
 "
+" set font for neovim qt
+set guifont=Consolas:h10
 if has("gui_running")
   " set font in gvim
   " gui colors
@@ -139,6 +141,16 @@ function! TrelloSettings()
 	set syntax=markdown
 endfunction
 au BufNewFile,BufRead vimperator-trello.* call TrelloSettings()
+
+function! s:SqlQueryDart(env, client, loc, busDate, sqlFile, outFile, bufOpenCmd)
+	set syntax=sql
+	let cmd = "RosTools QueryDataSets -eod -e " . a:env . " -c " . a:client . " -l " . a:loc . " -b \"" . a:busDate . "\" -i \"" . a:sqlFile . "\" -o " . a:outFile
+	silent execute "!" . cmd
+	if (bufnr(a:outFile) < 0)
+		execute a:bufOpenCmd a:outFile
+		:setl autoread
+	endif
+endfunction
 
 function! s:SqlQueryRos(env, db, sqlFile, outFile, bufOpenCmd, diff)
 	set syntax=sql
@@ -206,8 +218,16 @@ function! s:QueryRosDiff(envA, dbA, envB, dbB)
 	:redraw
 endfunction
 
+function! s:QueryDart(env, client, loc, busDate)
+	let sqlFile = tempname()
+	let lines = getline(1,'$')
+	let test = writefile(lines, sqlFile)
+	call s:SqlQueryDart(a:env, a:client, a:loc, a:busDate, sqlFile, tempname(), "new")
+endfunction
+
 command! -nargs=+ Query call s:Query(<f-args>)
 command! -nargs=+ QueryDiff call s:QueryDiff(<f-args>)
 command! -nargs=+ QueryRos call s:QueryRos(<f-args>)
 command! -nargs=+ QueryRosDiff call s:QueryRosDiff(<f-args>)
+command! -nargs=+ QueryDart call s:QueryDart(<f-args>)
 
