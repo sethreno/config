@@ -1,5 +1,6 @@
 :: create a unique file name
-set fileName=sqlite_%time:~0,2%%time:~3,2%%time:~6,2%_%date:~-10,2%%date:~-7,2%%date:~-4,4%.sql
+set fileNameWithSpaces=sqlite_%time:~0,2%%time:~3,2%%time:~6,2%_%date:~-10,2%%date:~-7,2%%date:~-4,4%.sql
+set fileName=%fileNameWithSpaces: =0%
 
 :: write the command to excute to the file for reference
 echo -- Query sqlite %1 > %temp%\%fileName%
