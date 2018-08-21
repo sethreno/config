@@ -54,6 +54,7 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 Plugin 'vcscommand.vim'
 Plugin 'surround.vim'
+Plugin 'visSum.vim'
 "Plugin 'taglist.vim'
 
 Plugin 'TaskList.vim'
