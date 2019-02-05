@@ -9,5 +9,5 @@ echo -- Query sqlite %1 > %temp%\%fileName%
 echo select type, name from sqlite_master >> %temp%\%fileName%
 
 :: open vim maximized, execute the command, and move it to a small left  pane
-gvim %temp%\%fileName% -c "set lines=999 columns=999" -c "Query sqlite %1" -c "wincmd H" -c "vertical resize 30" -c "wincmd l | :2"
+start gvim %temp%\%fileName% -c "set lines=999 columns=999" -c "Query sqlite %1" -c "wincmd H" -c "vertical resize 30" -c "wincmd l | :2"
 
