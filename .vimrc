@@ -1,5 +1,5 @@
 set nocompatible
-
+set encoding=utf-8
 set ts=4
 set sw=4
 set ruler
