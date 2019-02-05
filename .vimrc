@@ -29,6 +29,9 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
+" disable syntax for large files to prevent slowdown
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif
+
 " ----------------------------------------------------
 "                  tag stuff
 " ----------------------------------------------------
