@@ -92,8 +92,8 @@ set guifont=Consolas:h10
 if has("gui_running")
   " set font in gvim
   " gui colors
-  " favorites: zenburn anderson deus wombat VisualStudioDark
-  colorscheme deus
+  " favorites: zenburn anderson deus wombat VisualStudioDark gruvbox
+  colorscheme gruvbox
   if has("gui_gtk2")
     set guifont=Inconsolata\ 12
   elseif has("gui_win32")
