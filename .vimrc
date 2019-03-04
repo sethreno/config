@@ -113,6 +113,13 @@ if executable("xmllint")
 	command FormatXml call DoFormatXml()
 endif
 
+if executable("python")
+	function! DoFormatJson()
+		:%!python -m json.tool
+	endfunction
+	command FormatJson call DoFormatJson()
+endif
+
 " configure dbext
 let g:dbext_default_SQLSRV_bin = 'sqlcmd'
 let g:dbext_default_SQLSRV_cmd_options  = ''
