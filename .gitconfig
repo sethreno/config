@@ -1,0 +1,28 @@
+[user]
+	name = Seth Reno
+	email = sethreno@gmail.com
+
+[core]
+	editor = gvim
+	autocrlf = true
+
+[difftool]
+	prompt = false
+
+[difftool "gvim"]
+	# examples:
+	# git difftool --tool=gvim --dir-diff
+	# git difftool --tool=gvim --dir-diff d54ad8^!
+	prompt = false
+    name = gvim
+	cmd = "gvim -c \"set lines=200 columns=260\" -c \"vertical resize 120\" -c \"DirDiff $LOCAL $REMOTE\""
+
+[difftool "winmerge"]
+	# e.g git difftool --tool=winmerge --dir-diff
+	prompt = false
+    name = WinMerge
+    trustExitCode = true
+    cmd = "WinMergeU.exe" -u -e -r $LOCAL $REMOTE
+
+[credential]
+	helper = wincred
