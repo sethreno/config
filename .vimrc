@@ -54,12 +54,13 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
 " list of installed packages
+Plugin 'thinca/vim-fontzoom'
 Plugin 'gmarik/vundle'
 Plugin 'vcscommand.vim'
 Plugin 'surround.vim'
 Plugin 'visSum.vim'
 "Plugin 'taglist.vim'
-
+Plugin 'will133/vim-dirdiff'
 Plugin 'TaskList.vim'
 Plugin 'xmledit'
 Plugin 'xml.vim'
