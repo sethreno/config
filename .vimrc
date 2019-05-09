@@ -52,6 +52,7 @@ let Tlist_GainFocus_On_ToggleOpen = 1
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
 
 " list of installed packages
 Plugin 'thinca/vim-fontzoom'
@@ -72,6 +73,7 @@ Plugin 'vim-scripts/CycleColor'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
+Plugin 'scrooloose/nerdtree'
 
 " colorschemes
 Plugin 'flazz/vim-colorschemes'
@@ -94,7 +96,7 @@ if has("gui_running")
   " set font in gvim
   " gui colors
   " favorites: zenburn anderson deus wombat VisualStudioDark gruvbox
-  colorscheme gruvbox
+  colorscheme VisualStudioDark
   if has("gui_gtk2")
     set guifont=Inconsolata\ 12
   elseif has("gui_win32")
@@ -107,6 +109,7 @@ endif
 
 
 " add command to format xml
+" if on windows run choco install xsltproc to get xmllint
 if executable("xmllint")
 	function! DoFormatXml()
 		% !xmllint.exe % --format
@@ -121,6 +124,10 @@ if executable("python")
 	command FormatJson call DoFormatJson()
 endif
 
+" configure nerdtree
+map <A-;> :NERDTreeToggle<CR>
+let NERDTreeQuitOnOpen = 1
+
 " configure dbext
 let g:dbext_default_SQLSRV_bin = 'sqlcmd'
 let g:dbext_default_SQLSRV_cmd_options  = ''
@@ -134,13 +141,9 @@ set guioptions+=c
 " settings for git commit messages
 function! GitCommitSettings()
 	setlocal spell	
-	set lines=75 columns=120
-
-	" uncomment the following lines if you have core.autocrlf false
-	" alternatively run git config --global core.autocrlf true
-	%s///g               " remove ^M added by git diff
-	syntax sync fromstart  " refresh syntax highlight after replace
-	1                      " move to line 1
+	set ts=4
+	set lines=75 columns=121
+	colorscheme jellybeans
 endfunction
 au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
 
