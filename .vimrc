@@ -74,16 +74,26 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 Plugin 'scrooloose/nerdtree'
+Plugin 'chrisbra/csv.vim'
+Plugin 'sbdchd/neoformat'
+
+" js / react stuff
+Plugin 'pangloss/vim-javascript'
+Plugin 'MaxMEllon/vim-jsx-pretty'
 
 " colorschemes
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Heorhiy/VisualStudioDark.vim'
 Plugin 'felixhummel/setcolors.vim'
 Plugin 'ajmwagar/vim-deus'
+Plugin 'neomake/neomake'
 
 call vundle#end()
 filetype plugin indent on
 
+" neomake config
+let g:neomake_open_list = 2
+call neomake#configure#automake('nw', 750)
 
 
 " ----------------------------------------------------
@@ -96,7 +106,8 @@ if has("gui_running")
   " set font in gvim
   " gui colors
   " favorites: zenburn anderson deus wombat VisualStudioDark gruvbox
-  colorscheme VisualStudioDark
+  " pencil
+  colorscheme pencil
   if has("gui_gtk2")
     set guifont=Inconsolata\ 12
   elseif has("gui_win32")
