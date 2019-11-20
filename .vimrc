@@ -181,7 +181,7 @@ endfunction
 
 function! s:SqlQueryRos(env, db, sqlFile, outFile, bufOpenCmd, diff)
 	set syntax=sql
-	let cmd = "RosTools query -e " . a:env . " -db " . a:db . " -i \"" . a:sqlFile . "\" -o " . a:outFile
+	let cmd = "RosTools query --timeout 120 -e " . a:env . " -db " . a:db . " -i \"" . a:sqlFile . "\" -o " . a:outFile
 	silent execute "!" . cmd
 	if (bufnr(a:outFile) < 0)
 		execute a:bufOpenCmd a:outFile
@@ -194,7 +194,7 @@ endfunction
 
 function! s:SqlQuery(server, db, sqlFile, outFile, bufOpenCmd, diff)
 	set syntax=sql
-	let cmd = "RosTools query -s " . a:server . " -db " . a:db . " -i \"" . a:sqlFile . "\" -o " . a:outFile
+	let cmd = "RosTools query --timeout 120 -s " . a:server . " -db " . a:db . " -i \"" . a:sqlFile . "\" -o " . a:outFile
 	silent execute "!" . cmd
 	if (bufnr(a:outFile) < 0)
 		execute a:bufOpenCmd a:outFile
