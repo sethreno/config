@@ -11,6 +11,12 @@ sudo snap install --classic code
 sudo snap install dotnet-sdk --classic --channel=3.1
 sudo snap alias dotnet-sdk.dotnet dotnet
 sudo apt install docker.io -y
+sudo apt install postgresql postgresql-contrib -y
+
+sudo -u postgres createuser seth
+sudo -u postgres createdb seth
+sudo -u postgres psql -c 'alter user seth with encrypted password \'seth\';'
+sudo -u postgres psql -c 'alter user seth with superuser;'
 
 # preferred browser
 sudo apt install chromium-browser -y
