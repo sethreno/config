@@ -47,6 +47,7 @@ echo '' >> .bashrc
 
 git config --global user.name "Seth Reno"
 git config --global user.email "sethreno@gmail.com"
+git config --global credential.helper store
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
