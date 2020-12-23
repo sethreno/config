@@ -49,6 +49,9 @@ git config --global user.name "Seth Reno"
 git config --global user.email "sethreno@gmail.com"
 git config --global credential.helper store
 
+# fix sdk not found when opening vscode
+sudo ln -sv /snap/dotnet-sdk/current/dotnet /usr/local/bin/dotnet
+
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
