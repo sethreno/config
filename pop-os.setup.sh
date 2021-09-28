@@ -82,4 +82,3 @@ export EDITOR="$VISUAL"
 # * select nerd font in terminal
 # * log out / back in for default fish shell
 
-
