@@ -9,7 +9,14 @@ set nowrap
 set tw=72
 set autoindent
 set backspace=eol,start,indent
-set clipboard=unnamed "copy and paste to system clipboard
+
+"copy and paste to system clipboard
+if has('win32')
+	set clipboard=unnamed
+else
+	set clipboard=unnamedplus
+endif
+
 set visualbell " don't beep - our clicky keyboard is annoying enough for the neighbors
 
 " don't polute the world with temp files
@@ -68,7 +75,6 @@ Plugin 'xmledit'
 Plugin 'xml.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'dbext.vim'
-Plugin 'vim-scripts/OutlookVim'
 Plugin 'highlight.vim'
 Plugin 'vim-scripts/CycleColor'
 Plugin 'editorconfig/editorconfig-vim'
