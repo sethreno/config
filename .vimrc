@@ -138,9 +138,17 @@ endif
 if executable("python")
 	function! DoFormatJson()
 		:%!python -m json.tool
+		set syntax=json
+	endfunction
+	command FormatJson call DoFormatJson()
+elseif executable("py")
+	function! DoFormatJson()
+		:%!py -m json.tool
+		set syntax=json
 	endfunction
 	command FormatJson call DoFormatJson()
 endif
+
 
 if executable("sqlformat")
 	function! DoFormatSql()
