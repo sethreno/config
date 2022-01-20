@@ -136,6 +136,14 @@ if executable("python")
 	command FormatJson call DoFormatJson()
 endif
 
+if executable("sqlformat")
+	function! DoFormatSql()
+		:%!sqlformat --indent "  " -U
+		set syntax=sql
+	endfunction
+	command FormatSql call DoFormatSql()
+endif
+
 " configure nerdtree
 map <A-;> :NERDTreeToggle<CR>
 let NERDTreeQuitOnOpen = 1
@@ -157,7 +165,7 @@ function! GitCommitSettings()
 	set lines=75 columns=121
 	colorscheme jellybeans
 endfunction
-au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
+ " au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
 
 " prevent editor config from loading for vim commit message
 let g:EditorConfig_exclude_patterns = ['COMMIT_EDITMSG']
