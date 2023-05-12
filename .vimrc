@@ -195,6 +195,7 @@ function! s:SqlQueryDart(env, client, loc, busDate, sqlFile, outFile, bufOpenCmd
 	set syntax=sql
 	let cmd = "RosTools QueryDataSets -eod -e " . a:env . " -c " . a:client . " -l " . a:loc . " -b \"" . a:busDate . "\" -i \"" . a:sqlFile . "\" -o " . a:outFile
 	silent execute "!" . cmd
+	silent execute "%s/\r//g"
 	if (bufnr(a:outFile) < 0)
 		execute a:bufOpenCmd a:outFile
 		:setl autoread
@@ -207,6 +208,7 @@ function! s:SqlQueryRos(env, db, sqlFile, outFile, bufOpenCmd, diff)
 	silent execute "!" . cmd
 	if (bufnr(a:outFile) < 0)
 		execute a:bufOpenCmd a:outFile
+		silent execute "%s/\r//g"
 		if (a:diff == 1)
 			:diffthis
 		endif
@@ -218,6 +220,7 @@ function! s:SqlQuery(server, db, sqlFile, outFile, bufOpenCmd, diff)
 	set syntax=sql
 	let cmd = "RosTools query --timeout 120 -s " . a:server . " -db " . a:db . " -i \"" . a:sqlFile . "\" -o " . a:outFile
 	silent execute "!" . cmd
+	silent execute "%s/\r//g"
 	if (bufnr(a:outFile) < 0)
 		execute a:bufOpenCmd a:outFile
 		if (a:diff == 1)
