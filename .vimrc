@@ -57,8 +57,9 @@ let Tlist_GainFocus_On_ToggleOpen = 1
 " 
 " stuff required to get vundle to work
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
+set shellslash
+set rtp+=~/vimfiles/bundle/Vundle.vim/
+call vundle#begin('~/vimfiles/bundle')
 Plugin 'VundleVim/Vundle.vim'
 
 " list of installed packages
@@ -186,14 +187,6 @@ function! DoFormatQueryResultAsCsv()
 endfunction
 command FormatQueryResultAsCsv call DoFormatQueryResultAsCsv()
 
-" configure nerdtree
-map <A-;> :NERDTreeToggle<CR>
-let NERDTreeQuitOnOpen = 1
-
-" configure dbext
-let g:dbext_default_SQLSRV_bin = 'sqlcmd'
-let g:dbext_default_SQLSRV_cmd_options  = ''
-
 " hide unused stuff in gvim
 set guioptions-=m
 set guioptions-=T
@@ -204,7 +197,6 @@ set guioptions+=c
 function! GitCommitSettings()
 	setlocal spell	
 	set ts=4
-	set lines=75 columns=121
 	colorscheme jellybeans
 endfunction
 au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
