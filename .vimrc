@@ -73,7 +73,6 @@ Plugin 'will133/vim-dirdiff'
 Plugin 'TaskList.vim'
 Plugin 'xmledit'
 Plugin 'xml.vim'
-Plugin 'tpope/vim-fugitive'
 Plugin 'dbext.vim'
 Plugin 'highlight.vim'
 Plugin 'vim-scripts/CycleColor'
@@ -83,6 +82,7 @@ Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 Plugin 'scrooloose/nerdtree'
 Plugin 'chrisbra/csv.vim'
 Plugin 'sbdchd/neoformat'
+"Plugin 'tpope/vim-fugitive'
 
 " js / react stuff
 Plugin 'pangloss/vim-javascript'
@@ -94,6 +94,7 @@ Plugin 'Heorhiy/VisualStudioDark.vim'
 Plugin 'felixhummel/setcolors.vim'
 Plugin 'ajmwagar/vim-deus'
 Plugin 'neomake/neomake'
+Plugin 'Rigellute/shades-of-purple.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -113,8 +114,15 @@ if has("gui_running")
   " set font in gvim
   " gui colors
   " favorites: zenburn anderson deus wombat VisualStudioDark gruvbox
-  " pencil
-  colorscheme pencil
+  " pencil shades_of_purple
+
+	if (has("termguicolors"))
+	 set termguicolors
+	endif
+
+	"""" enable the theme
+	colorscheme shades_of_purple
+
   if has("gui_gtk2")
     set guifont=Inconsolata\ 12
   elseif has("gui_win32")
@@ -158,6 +166,26 @@ if executable("sqlformat")
 	command FormatSql call DoFormatSql()
 endif
 
+function! DoRemoveCr()
+	silent execute "%s/\r//g"
+endfunction
+command RemoveCr call DoRemoveCr()
+
+function! DoQuoteParens()
+	silent execute "%s/{/'{/g"
+	silent execute "%s/}/}'/g"
+endfunction
+command QuoteParens call DoQuoteParens()
+
+function! DoFormatQueryResultAsCsv()
+	silent execute "g/|----/d"
+	silent execute "%s/||/|/g"
+	silent execute "%s/^| *//g"
+	silent execute "%s/ *|$//g"
+	silent execute "%s/ *| */,/g"
+endfunction
+command FormatQueryResultAsCsv call DoFormatQueryResultAsCsv()
+
 " configure nerdtree
 map <A-;> :NERDTreeToggle<CR>
 let NERDTreeQuitOnOpen = 1
@@ -179,7 +207,7 @@ function! GitCommitSettings()
 	set lines=75 columns=121
 	colorscheme jellybeans
 endfunction
- " au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
+au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
 
 " prevent editor config from loading for vim commit message
 let g:EditorConfig_exclude_patterns = ['COMMIT_EDITMSG']
@@ -195,7 +223,6 @@ function! s:SqlQueryDart(env, client, loc, busDate, sqlFile, outFile, bufOpenCmd
 	set syntax=sql
 	let cmd = "RosTools QueryDataSets -eod -e " . a:env . " -c " . a:client . " -l " . a:loc . " -b \"" . a:busDate . "\" -i \"" . a:sqlFile . "\" -o " . a:outFile
 	silent execute "!" . cmd
-	silent execute "%s/\r//g"
 	if (bufnr(a:outFile) < 0)
 		execute a:bufOpenCmd a:outFile
 		:setl autoread
@@ -208,7 +235,6 @@ function! s:SqlQueryRos(env, db, sqlFile, outFile, bufOpenCmd, diff)
 	silent execute "!" . cmd
 	if (bufnr(a:outFile) < 0)
 		execute a:bufOpenCmd a:outFile
-		silent execute "%s/\r//g"
 		if (a:diff == 1)
 			:diffthis
 		endif
@@ -220,7 +246,6 @@ function! s:SqlQuery(server, db, sqlFile, outFile, bufOpenCmd, diff)
 	set syntax=sql
 	let cmd = "RosTools query --timeout 120 -s " . a:server . " -db " . a:db . " -i \"" . a:sqlFile . "\" -o " . a:outFile
 	silent execute "!" . cmd
-	silent execute "%s/\r//g"
 	if (bufnr(a:outFile) < 0)
 		execute a:bufOpenCmd a:outFile
 		if (a:diff == 1)
