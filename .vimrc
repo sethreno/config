@@ -131,7 +131,12 @@ if has("gui_running")
   endif
 else
   " terminal colors
-  colorscheme 0x7A69_dark
+	if (has("termguicolors"))
+		set termguicolors
+		colorscheme shades_of_purple
+	else
+		colorscheme 0x7A69_dark
+	endif
 endif
 
 
@@ -197,7 +202,6 @@ set guioptions+=c
 function! GitCommitSettings()
 	setlocal spell	
 	set ts=4
-	colorscheme jellybeans
 endfunction
 au BufNewFile,BufRead COMMIT_EDITMSG call GitCommitSettings()
 
